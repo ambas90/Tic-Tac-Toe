@@ -2,6 +2,8 @@ const fileds = document.querySelector(".fields");
 const title = document.querySelector(".title");
 fileds.addEventListener("click", fieldFinder);
 let mark = "o";
+let gameOn = true;
+let markCounter = 0;
 let oMarks = [];
 let xMarks = [];
 const vinMarks = [
@@ -17,7 +19,7 @@ const vinMarks = [
 
 //wyszukanie klikniętego pola
 function fieldFinder(event) {
-  if (event.target.nodeName !== "BUTTON") {
+  if (event.target.nodeName !== "BUTTON" || gameOn === false) {
     return;
   }
   const selectedField = document.querySelector(`#${event.target.id}`);
@@ -34,8 +36,9 @@ function fieldMarking(selectedField) {
   markChanger();
 }
 
-//zapisywanie pozycj x i o
+//zapisywanie pozycj x i o do tablicy
 function marksSaving(selectedField, mark) {
+  markCounter++;
   if (mark === "o") {
     oMarks.push(selectedField.id);
     winCheck(oMarks);
@@ -58,10 +61,12 @@ function winCheck(marks) {
   if (marks.length < 3) {
     return;
   }
-  console.log("sprawdzam zaznaczone na planszy", marks);
   for (const vinLine of vinMarks) {
     if (arrCompare(vinLine, marks)) {
       gameEnd(vinLine);
+    }
+    if (markCounter === 9) {
+      gameEnd("remis");
     }
   }
 }
@@ -77,12 +82,18 @@ function arrCompare(arr1, arr2) {
   return true;
 }
 
-function gameEnd(LineToMark) {
-  console.log(`wygrały ${mark}`);
+//zaznaczenie wygranej lini i wyswietlenie wyniku
+function gameEnd(lineToMark) {
+  if (lineToMark === "remis") {
+    title.textContent = `Remis!`;
+    title.style.color = "red";
+    return;
+  }
   title.textContent = `${mark} wygrało!`;
   title.style.color = "red";
-  for (value of LineToMark) {
+  for (value of lineToMark) {
     const fieldToMark = document.querySelector(`#${value}`);
     fieldToMark.style.backgroundColor = "red";
   }
+  gameOn = false;
 }
