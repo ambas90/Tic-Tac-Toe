@@ -64,6 +64,7 @@ function winCheck(marks) {
   for (const vinLine of vinMarks) {
     if (arrCompare(vinLine, marks)) {
       gameEnd(vinLine);
+      return;
     }
     if (markCounter === 9) {
       gameEnd("remis");
