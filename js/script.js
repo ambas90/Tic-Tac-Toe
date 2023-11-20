@@ -1,6 +1,7 @@
 const fileds = document.querySelector(".fields");
 const title = document.querySelector(".title");
-fileds.addEventListener("click", fieldFinder);
+const reset = document.querySelector(".resetButton");
+const fieldsbuttons = document.querySelectorAll(".fieldButton");
 let mark = "o";
 let gameOn = true;
 let markCounter = 0;
@@ -56,6 +57,7 @@ function markChanger() {
     mark = "o";
   }
 }
+
 //sprawdzanie 3 symboli w jednej lini
 function winCheck(marks) {
   if (marks.length < 3) {
@@ -98,3 +100,20 @@ function gameEnd(lineToMark) {
   }
   gameOn = false;
 }
+
+//resetowanie gry
+
+function gameReset() {
+  gameOn = true;
+  markCounter = 0;
+  oMarks = [];
+  xMarks = [];
+  console.log(fieldsbuttons);
+  fieldsbuttons.forEach((element) => {
+    element.textContent = "";
+    element.style.backgroundColor = "#127369";
+  });
+}
+
+fileds.addEventListener("click", fieldFinder);
+reset.addEventListener("click", gameReset);
