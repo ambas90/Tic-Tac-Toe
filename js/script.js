@@ -2,6 +2,7 @@ const fileds = document.querySelector(".fields");
 const title = document.querySelector(".title");
 const reset = document.querySelector(".resetButton");
 const fieldsbuttons = document.querySelectorAll(".fieldButton");
+const clickSound = new Audio("sounds/pop.mp3");
 let mark = "o";
 let gameOn = true;
 let markCounter = 0;
@@ -35,6 +36,7 @@ function fieldFinder(event) {
 //zaznaczanie pola
 function fieldMarking(selectedField) {
   selectedField.textContent = mark;
+  clickSound.play();
   marksSaving(selectedField, mark);
   markChanger();
 }
