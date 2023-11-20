@@ -18,6 +18,8 @@ const vinMarks = [
   ["C1", "B2", "A3"],
 ];
 
+title.textContent = `${mark} zaczyna`;
+
 //wyszukanie klikniętego pola
 function fieldFinder(event) {
   if (event.target.nodeName !== "BUTTON" || gameOn === false) {
@@ -113,6 +115,8 @@ function gameReset() {
     element.textContent = "";
     element.style.backgroundColor = "#127369";
   });
+  title.textContent = `${mark} zaczyna`;
+  title.style.color = "black";
 }
 
 fileds.addEventListener("click", fieldFinder);
